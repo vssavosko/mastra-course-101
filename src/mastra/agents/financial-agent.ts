@@ -1,6 +1,8 @@
 import { Agent } from '@mastra/core/agent';
 //import { openai } from '@ai-sdk/openai';
 import { openrouter } from '../providers/openrouter';
+import { Memory } from '@mastra/memory';
+import { LibSQLStore } from '@mastra/libsql';
 import { getTransactionsTool } from '../tools/get-transactions-tool';
 
 export const financialAgent = new Agent({
@@ -35,6 +37,11 @@ export const financialAgent = new Agent({
   TOOLS
   - Use the getTransactions tool to fetch financial transaction data.
   - Analyze the transaction data to answer user questions about their spending.`,
-  model: openrouter('openai/gpt-oss-20b:free'), // You can use "gpt-3.5-turbo" if you prefer
+  model: openrouter('deepseek/deepseek-chat-v3-0324:free'), // You can use "gpt-3.5-turbo" if you prefer
   tools: { getTransactionsTool },
+  memory: new Memory({
+    storage: new LibSQLStore({
+      url: 'file:../../memory.db', // local file-system database. Location is relative to the output directory `.mastra/output`
+    }),
+  }), // Add memory here
 });
