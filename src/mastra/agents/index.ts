@@ -13,5 +13,9 @@ export const mcp = new MCPClient({
         },
       },
     },
+    hackernews: {
+      command: 'npx',
+      args: ['-y', '@devabdultech/hn-mcp-server'],
+    },
   },
 });
