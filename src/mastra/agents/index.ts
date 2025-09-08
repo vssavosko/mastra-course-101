@@ -1,3 +1,5 @@
+import path from 'path';
+
 import { MCPClient } from '@mastra/mcp';
 
 export const mcp = new MCPClient({
@@ -16,6 +18,13 @@ export const mcp = new MCPClient({
     hackernews: {
       command: 'npx',
       args: ['-y', '@devabdultech/hn-mcp-server'],
+    },
+    textEditor: {
+      command: 'pnpx',
+      args: [
+        `@modelcontextprotocol/server-filesystem`,
+        path.join(process.cwd(), '..', '..', 'notes'), // relative to output directory
+      ],
     },
   },
 });
