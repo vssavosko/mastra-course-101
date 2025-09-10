@@ -4,11 +4,14 @@ import { LibSQLStore } from '@mastra/libsql';
 
 import { openrouter } from '../providers/openrouter';
 
-// Create a basic memory instance
+// Create a memory instance with custom conversation history settings
 const memory = new Memory({
   storage: new LibSQLStore({
     url: 'file:../../memory.db', // relative path from `.mastra/output` directory
   }),
+  options: {
+    lastMessages: 20, // Include last 20 messages in context instead of 10 by default
+  },
 });
 
 // Create a memory agent
